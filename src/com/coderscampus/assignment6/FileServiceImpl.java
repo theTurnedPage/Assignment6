@@ -32,7 +32,7 @@ public class FileServiceImpl implements FileService {
 	public static Map<String, Double> model3Map = new HashMap<String, Double>();
 	public static Map<String, Double> modelSMap = new HashMap<String, Double>();
 	public static Map<String, Double> modelXMap = new HashMap<String, Double>();
-	
+	//SalesData object is not really being used, initially it was but then the maps were super useful
 	public static SalesData teslaData = new SalesData(null, 0, Double.NaN);
 	
 	public List<Map<String, Double>> mapNames = List.of(model3Map, modelSMap, modelXMap);
@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
                       String dateString = parts[0]; //two columns, 1 for date one for sale
                       String salesString = parts[1];
                       String newDateString = convertDate(dateString);
-                      System.out.println(newDateString);
+                      
                       //store the months separate for comparisons later                      
                       Double salesDouble = Double.parseDouble(salesString); //change to a double, use for map
          
@@ -140,9 +140,7 @@ public class FileServiceImpl implements FileService {
 	          .findFirst();
 	
 	      if (matchingEntry.isPresent()) {
-	      	  theKey = matchingEntry.get().getKey();
-	      	  //System.out.println(theKey);
-	      	//String theOutput = convertDate(theKey);
+	      	theKey = matchingEntry.get().getKey();
 	      	String theOutput = theKey;
 	      	System.out.print(theOutput);
 	      } 
@@ -215,6 +213,4 @@ public class FileServiceImpl implements FileService {
         YearMonth yearMonth = YearMonth.parse(originalDate, inputFormatter);
         return yearMonth.format(outputFormatter);
     }		
-
-
 }
