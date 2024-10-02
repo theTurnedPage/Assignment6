@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,13 +152,13 @@ public class FileServiceImpl implements FileService {
     		shortenSaleYears.add(shortenDateString(saleYears.get(j)));
     	}
     	
-    	//use distinct to avoid duplicate years, shorten the List
-    	List<String> newSaleYears = shortenSaleYears.stream().distinct().toList();
+    	//use distinct to avoid duplicate years, shorten the List, and sort it
+    	List<String> newSaleYears = shortenSaleYears.stream().distinct().sorted().toList();
     	
     	if (dataMap.equals(model3Map)) {
      	   i = 1;//skip 2016 for Model3
      	}
-    	
+    	//removing the fixed array made it so 2016 doesn't appear for Model 3
     	for (i = 0; i < newSaleYears.size(); i++) {
         	totalSales = sumValues(dataMap, newSaleYears.get(i).toString());
         	System.out.println(newSaleYears.get(i) + " -> " + totalSales +"\n"); 
