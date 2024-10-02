@@ -201,7 +201,7 @@ public class FileServiceImpl implements FileService {
     	for (i = 0; i < yearArray.length - 1; i++) {
         	
     		totalSales = sumValues(dataMap, yearArray[i].toString());
-        	System.out.println(yearArray[i] + " -> " + totalSales +"\n");        			
+        	System.out.println("20"+ yearArray[i] + " -> " + totalSales +"\n");        			
         }
     }    	    	                    	    
     
