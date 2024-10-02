@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +20,6 @@ public class FileServiceImpl implements FileService {
 	public static Map<String, Double> modelXMap = new HashMap<String, Double>();
 	//SalesData object is not really being used, initially it was but then the maps were super useful
 	public static SalesData teslaData = new SalesData(null, 0, Double.NaN);
-	
-	public List<Map<String, Double>> mapNames = List.of(model3Map, modelSMap, modelXMap);
 	
 	@Override
 	public void readFile(String fileName) {						
@@ -150,7 +147,7 @@ public class FileServiceImpl implements FileService {
     	//create new list, then populate it with return value of shortened years
     	for (int j = 0; j < saleYears.size(); j++) {
     		shortenSaleYears.add(shortenDateString(saleYears.get(j)));
-    	}
+    	}    	    	
     	
     	//use distinct to avoid duplicate years, shorten the List, and sort it
     	List<String> newSaleYears = shortenSaleYears.stream().distinct().sorted().toList();
@@ -180,7 +177,7 @@ public class FileServiceImpl implements FileService {
     	//from dataMap, get all entries filtered by theYear parameter, then get the intValue of the Values in the dataMap into a list for use later    	
     	List<Integer> yearlySales = dataMap.entrySet().stream()
     			.filter(entry -> entry.getKey().contains(theYear))
-    			.map(cars -> cars.getValue().intValue())    			
+    			.map(sales -> sales.getValue().intValue())    			
     			.collect(Collectors.toList());
     	//sum all the intValues in yearlySales, then return
     	Integer sumValue = yearlySales.stream()
