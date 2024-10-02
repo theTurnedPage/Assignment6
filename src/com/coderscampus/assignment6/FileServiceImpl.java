@@ -35,14 +35,8 @@ public class FileServiceImpl implements FileService {
 	public static Map<String, Double> allSalesMap = new HashMap<String, Double>();
 	
 	public static SalesData teslaData = new SalesData(null, 0, Double.NaN);
-	//public static List<SalesData> teslaList = new ArrayList<>();
 	
 	public List<Map<String, Double>> mapNames = List.of(model3Map, modelSMap, modelXMap);
-	
-//	public static void testMethod() throws ParseException {	
-//        
-//	}
-
 	
 	@Override
 	public void readFile(String fileName) {						
@@ -98,41 +92,6 @@ public class FileServiceImpl implements FileService {
 			}
         }	 				
 	}
-	//create SalesData objects, add to List(s) got carried away with Maps and decided to use them instead
-	//public static void fillList(String fileName, int year, Double sales){
-		
-		//if (fileNames.contains(fileName)) {
-					
-//	        if (fileName.toString().equalsIgnoreCase(model3File.toString())) {
-//	        	try {
-//					teslaData = new SalesData("Model 3", year, sales);
-//					teslaList.add(teslaData);
-//					
-//				} catch (Exception e) {
-//					System.out.println("Exception!");
-//				}
-//	        }
-//	        
-//	        else if (fileName.toString().equalsIgnoreCase(modelSFile.toString())) {
-//	        	try {
-//					teslaData = new SalesData("Model S", year, sales);	
-//					teslaList.add(teslaData);
-//				} catch (Exception e) {
-//					System.out.println("Exception!");
-//				}
-//	        }
-//	        
-//	        else if (fileName.toString().equalsIgnoreCase(modelXFile.toString())) {
-//	        	try {
-//					teslaData = new SalesData("Model X", year, sales);	
-//					teslaList.add(teslaData);
-//				} catch (Exception e) {
-//					System.out.println("Exception!");
-//					System.out.println(e);
-//				}
-//	        }	        
-		//}		                                        
-	//}	
 	
     public static void getMinMax(Map<String, Double> dataMap) throws ParseException {    	
 
@@ -198,15 +157,15 @@ public class FileServiceImpl implements FileService {
 	}
     
     public static void retrieveYearlyReport(Map<String, Double> dataMap) {
-
-    	Integer[] yearArray = {16, 17, 18, 19, 20};//
-    	Integer totalSales = 0;
-    	int i = 0;
+    	//Might need to change this, and instead maybe use a stream that pulls the year and groups them
+    	Integer[] yearArray = {16, 17, 18, 19, 20};    	    			
+    	Integer totalSales = 0;    	
+    	int i = 0;  
     	
     	if (dataMap.equals(model3Map)) {
     	   i = 1;//skip 2016 for Model3
     	}
-    	//I'm aware this is displaying 2016 for Model3 still
+    	//This is displaying 2016 for Model3 still
     	for (i = 0; i < yearArray.length - 1; i++) {
         	
     		totalSales = sumValues(dataMap, yearArray[i].toString());
