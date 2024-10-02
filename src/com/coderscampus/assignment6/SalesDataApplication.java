@@ -15,22 +15,20 @@ public class SalesDataApplication {
 //--------------------------input--------------------------	
 		FileServiceImpl captureData = new FileServiceImpl();
 		
-		captureData.readFile(captureData.model3File.toString());
-		captureData.readFile(captureData.modelXFile.toString());
-		captureData.readFile(captureData.modelSFile.toString());
+		captureData.readFile(FileServiceImpl.model3File.toString());
+		captureData.readFile(FileServiceImpl.modelXFile.toString());
+		captureData.readFile(FileServiceImpl.modelSFile.toString());
 //--------------------------output--------------------------
-				
-		System.out.println("\nModel 3 Yearly Sales Report\n--------------------------");
-		captureData.retrieveYearlyReport(captureData.model3Map);
-		captureData.getMinMax(captureData.model3Map);
-		System.out.println("\nModel X Yearly Sales Report\n--------------------------");
-		captureData.retrieveYearlyReport(captureData.modelSMap);
-		captureData.getMinMax(captureData.modelXMap);	
-		System.out.println("\nModel S Yearly Sales Report\n--------------------------");
-		captureData.retrieveYearlyReport(captureData.modelXMap);
-		captureData.getMinMax(captureData.modelSMap);
 		
-		//captureData.testMethod();
+		System.out.println("\nModel 3 Yearly Sales Report\n--------------------------");
+		FileServiceImpl.retrieveYearlyReport(FileServiceImpl.model3Map);
+		FileServiceImpl.getMinMax(FileServiceImpl.model3Map);
+		System.out.println("\nModel X Yearly Sales Report\n--------------------------");
+		FileServiceImpl.retrieveYearlyReport(FileServiceImpl.modelSMap);
+		FileServiceImpl.getMinMax(FileServiceImpl.modelXMap);	
+		System.out.println("\nModel S Yearly Sales Report\n--------------------------");
+		FileServiceImpl.retrieveYearlyReport(FileServiceImpl.modelXMap);
+		FileServiceImpl.getMinMax(FileServiceImpl.modelSMap);		
 	}
 
 }

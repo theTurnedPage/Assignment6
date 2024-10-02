@@ -32,7 +32,6 @@ public class FileServiceImpl implements FileService {
 	public static Map<String, Double> model3Map = new HashMap<String, Double>();
 	public static Map<String, Double> modelSMap = new HashMap<String, Double>();
 	public static Map<String, Double> modelXMap = new HashMap<String, Double>();
-	public static Map<String, Double> allSalesMap = new HashMap<String, Double>();
 	
 	public static SalesData teslaData = new SalesData(null, 0, Double.NaN);
 	
@@ -51,13 +50,10 @@ public class FileServiceImpl implements FileService {
                       String salesString = parts[1];
                       String newDateString = convertDate(dateString);
                       System.out.println(newDateString);
-                      allSalesMap.put(newDateString, Double.parseDouble(salesString));
                       //store the months separate for comparisons later                      
                       Double salesDouble = Double.parseDouble(salesString); //change to a double, use for map
          
-					  fillMaps(fileName, newDateString, salesDouble);//put values into corresponding map
-                      //fillList(fileName, theYear, salesDouble); //put values into corresponding list
-                      //System.out.println(date + " -> " + sales);                      
+					  fillMaps(fileName, newDateString, salesDouble);//put values into corresponding map                    
                   });            
         } 
         
