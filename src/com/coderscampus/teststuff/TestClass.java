@@ -34,7 +34,7 @@ public class TestClass {
 	        }
 	    }
 
-	    public static void main2(String[] args) {
+	    public static void main2() {
 	        String inputDate = "23-Sep"; //Example input
 	        String fullYearFormat = convertToFullYearFormat(inputDate);
 	        System.out.println("Converted date: " + fullYearFormat);
@@ -42,7 +42,7 @@ public class TestClass {
 	    
 	    public static void main(String[] args) {
 	    	
-	    	
-	    	CarSale.main3();
+	    	main2();
+	    	//CarSale.main3();
 	    }
 }

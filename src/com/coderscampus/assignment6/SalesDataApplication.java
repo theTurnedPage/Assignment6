@@ -12,15 +12,13 @@ public class SalesDataApplication {
 	
 	private static void runApp() throws ParseException {
 		
+//--------------------------input--------------------------	
 		FileServiceImpl captureData = new FileServiceImpl();
 		
 		captureData.readFile(captureData.model3File.toString());
 		captureData.readFile(captureData.modelXFile.toString());
 		captureData.readFile(captureData.modelSFile.toString());
-		//System.out.println("\n-----begin min max report-----\n");													
-		
-		//System.out.println("\n"+teslaList.get(50).getModel());
-		//System.out.println("\n------begin yearly report------\n");
+//--------------------------output--------------------------
 				
 		System.out.println("\nModel 3 Yearly Sales Report\n--------------------------");
 		captureData.retrieveYearlyReport(captureData.model3Map);
@@ -31,6 +29,8 @@ public class SalesDataApplication {
 		System.out.println("\nModel S Yearly Sales Report\n--------------------------");
 		captureData.retrieveYearlyReport(captureData.modelXMap);
 		captureData.getMinMax(captureData.modelSMap);
+		
+		//captureData.testMethod();
 	}
 
 }

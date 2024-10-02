@@ -8,7 +8,11 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -35,8 +39,10 @@ public class FileServiceImpl implements FileService {
 	
 	public List<Map<String, Double>> mapNames = List.of(model3Map, modelSMap, modelXMap);
 	
-//	public static void testMethod() throws ParseException {
+//	public static void testMethod() throws ParseException {	
+//        
 //	}
+
 	
 	@Override
 	public void readFile(String fileName) {						
@@ -90,7 +96,7 @@ public class FileServiceImpl implements FileService {
 			}
         }	 				
 	}
-	//create SalesData objects, add to list(s) got carried away with Maps and decided to use them instead
+	//create SalesData objects, add to List(s) got carried away with Maps and decided to use them instead
 	//public static void fillList(String fileName, int year, Double sales){
 		
 		//if (fileNames.contains(fileName)) {
@@ -179,7 +185,7 @@ public class FileServiceImpl implements FileService {
 	      if (matchingEntry.isPresent()) {
 	      	  theKey = matchingEntry.get().getKey();
 	      	  //System.out.println(theKey);
-	      	String theOutput = convertStringFormat(theKey);
+	      	String theOutput = convertDate(theKey);
 	      	System.out.print(theOutput);
 	      } 
 	      
@@ -197,7 +203,7 @@ public class FileServiceImpl implements FileService {
     	if (dataMap.equals(model3Map)) {
     	   i = 1;//skip 2016 for Model3
     	}
-    	    		
+    	//I'm aware this is displaying 2016 for Model3 still
     	for (i = 0; i < yearArray.length - 1; i++) {
         	
     		totalSales = sumValues(dataMap, yearArray[i].toString());
@@ -213,69 +219,24 @@ public class FileServiceImpl implements FileService {
     			.filter(entry -> entry.getKey().contains(theYear))
     			.map(cars -> cars.getValue().intValue())    			
     			.collect(Collectors.toList());
-    	
+
     	Integer sumValue = yearlySales.stream()
     	        .mapToInt(Integer::intValue)
     	        .sum();
-    	    	    	
-    	//System.out.println("\n*----Y: "+ yearlySales +"----*\n");
-    	//System.out.println("\n*----S: "+ sumValue +"----*\n");
-
     	    
     	return sumValue;
     }
     
-    public static int stringDateToYear(String dateString) throws ParseException {
-    	
-    	//ignore the months, only get the year
-    	String part2 = dateString.substring(dateString.length() - 2);
-    	//add a 20 to the beginning
-    	String bothParts = "20" + part2;
-    	
-    	try {
-    		//parse the String to an int and return
-    	    int parsedInt = Integer.parseInt(bothParts);
-    	    //System.out.println("Parsed integer value: " + parsedInt);
-    	    return parsedInt;
-    	} catch (NumberFormatException e) {
-    	    System.err.println("Error parsing the String to an int: " + e.getMessage());
-    	}
-		return 0;		
-    }
-    
-    public static String shortenString(String dateString) {
-    	
-    	//Remove part of String for yyyy-MM format for the best and worst month printout
-    	//It is possible you meant for MM to be numbers instead, so I provided both
-    	String shortenedString = (String) dateString.subSequence(0, 2).toString().toUpperCase();
-    	
-    	return shortenedString;
-    }
-    
-	 public static String convertStringFormat(String inputString) {
+    //much simpler, less gymnastics than the previous methods.
+    private static String convertDate(String originalDate) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM-yy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        //kept getting an exception, LocalDate seems to expect a complete date (including the day).
+        //Using LocalDate apparently assumes the first day of the specified month, not matching the output
+        //for the assignment
+        YearMonth yearMonth = YearMonth.parse(originalDate, inputFormatter);
+        return yearMonth.format(outputFormatter);
+    }		
 
-		 try {	        
-	            SimpleDateFormat inputFormat = new SimpleDateFormat("MMM-yy");
-	            Date date = inputFormat.parse(inputString);
-
-	            Calendar calendar = Calendar.getInstance();
-	            calendar.setTime(date);
-
-	            int year = calendar.get(Calendar.YEAR);
-	            int month = calendar.get(Calendar.MONTH);
-
-	            //Get the two-letter month abbreviation
-	            String[] monthAbbreviations = new DateFormatSymbols().getShortMonths();
-	            String monthAbbreviation = monthAbbreviations[month];
-	            String fixedMonth = shortenString(monthAbbreviation);
-
-	            //Convert to yyyy-mmm format, %4d format specifier
-	            return String.format("%4d", year) + "-" + fixedMonth;
-	        } catch (ParseException e) {
-	            //Handle parsing errors (invalid inputString's format)
-	            e.printStackTrace();
-	            return "Invalid inputString.";
-	        }
-	    }    
 
 }
