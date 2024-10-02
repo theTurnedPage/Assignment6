@@ -55,11 +55,13 @@ public class FileServiceImpl implements FileService {
                   .forEach(parts -> {
                       String dateString = parts[0]; //two columns, 1 for date one for sale
                       String salesString = parts[1];
-                      allSalesMap.put(dateString, Double.parseDouble(salesString));
+                      String newDateString = convertDate(dateString);
+                      System.out.println(newDateString);
+                      allSalesMap.put(newDateString, Double.parseDouble(salesString));
                       //store the months separate for comparisons later                      
                       Double salesDouble = Double.parseDouble(salesString); //change to a double, use for map
          
-					  fillMaps(fileName, dateString, salesDouble);//put values into corresponding map
+					  fillMaps(fileName, newDateString, salesDouble);//put values into corresponding map
                       //fillList(fileName, theYear, salesDouble); //put values into corresponding list
                       //System.out.println(date + " -> " + sales);                      
                   });            
@@ -185,7 +187,8 @@ public class FileServiceImpl implements FileService {
 	      if (matchingEntry.isPresent()) {
 	      	  theKey = matchingEntry.get().getKey();
 	      	  //System.out.println(theKey);
-	      	String theOutput = convertDate(theKey);
+	      	//String theOutput = convertDate(theKey);
+	      	String theOutput = theKey;
 	      	System.out.print(theOutput);
 	      } 
 	      
