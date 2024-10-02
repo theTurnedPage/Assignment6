@@ -133,7 +133,7 @@ public class FileServiceImpl implements FileService {
 	//retrieve key from map
 	public static void retrieveKey(Map<String, Double> dataMap, Double aValue) throws ParseException {
 		
-		String theKey = "";    	        	
+	  String theKey = "";    	        	
 		
 	  Optional<Map.Entry<String, Double>> matchingEntry = dataMap.entrySet().stream()
 	          .filter(entry -> entry.getValue().equals(aValue))
@@ -153,31 +153,51 @@ public class FileServiceImpl implements FileService {
 	}
     
     public static void retrieveYearlyReport(Map<String, Double> dataMap) {
-    	//Might need to change this, and instead maybe use a stream that pulls the year and groups them
-    	Integer[] yearArray = {16, 17, 18, 19, 20};    	    			
+    	
+    	//removed fixed array, and instead pulled the years of sale using streams into Lists
     	Integer totalSales = 0;    	
     	int i = 0;  
+    	//take all years, which are in the keySet, insert into a list
+    	List<String> saleYears = dataMap.keySet().stream()
+    			.toList();
+    	
+    	List<String> shortenSaleYears = new ArrayList<>();
+    	//create new list, then populate it with return value of shortened years
+    	for (int j = 0; j < saleYears.size(); j++) {
+    		shortenSaleYears.add(shortenDateString(saleYears.get(j)));
+    	}
+    	
+    	//use distinct to avoid duplicate years, shorten the List
+    	List<String> newSaleYears = shortenSaleYears.stream().distinct().toList();
     	
     	if (dataMap.equals(model3Map)) {
-    	   i = 1;//skip 2016 for Model3
+     	   i = 1;//skip 2016 for Model3
+     	}
+    	
+    	for (i = 0; i < newSaleYears.size(); i++) {
+        	totalSales = sumValues(dataMap, newSaleYears.get(i).toString());
+        	System.out.println(newSaleYears.get(i) + " -> " + totalSales +"\n"); 
     	}
-    	//This is displaying 2016 for Model3 still
-    	for (i = 0; i < yearArray.length - 1; i++) {
-        	
-    		totalSales = sumValues(dataMap, yearArray[i].toString());
-        	System.out.println("20"+ yearArray[i] + " -> " + totalSales +"\n");        			
+
+    }
+    
+    public static String shortenDateString(String dateString) {
+    	//remove 3 parts of the string, leaving just the year
+        if (dateString.length() >= 5) {
+            return dateString.substring(0, dateString.length() - 3);
+        } else {//if string is too short
+            return dateString;
         }
-    }    	    	                    	    
+    }
     
     public static Integer sumValues(Map<String, Double> dataMap, String theYear) {    	    	    	    	    	    	
     	
-    	//System.out.println("test!" + dataMap.entrySet().toString());
-    	
+    	//from dataMap, get all entries filtered by theYear parameter, then get the intValue of the Values in the dataMap into a list for use later    	
     	List<Integer> yearlySales = dataMap.entrySet().stream()
     			.filter(entry -> entry.getKey().contains(theYear))
     			.map(cars -> cars.getValue().intValue())    			
     			.collect(Collectors.toList());
-
+    	//sum all the intValues in yearlySales, then return
     	Integer sumValue = yearlySales.stream()
     	        .mapToInt(Integer::intValue)
     	        .sum();
