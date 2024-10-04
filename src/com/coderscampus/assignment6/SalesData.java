@@ -1,13 +1,15 @@
 package com.coderscampus.assignment6;
 
+import java.time.YearMonth;
+
 public class SalesData {
 	
 	private String model;
-	private int year;
+	private YearMonth year;
 	private Double sales;
 	
 	
-	public SalesData(String model, int year, Double sales) {
+	public SalesData(String model, YearMonth year, Double sales) {
 		super();
 		this.model = model;
 		this.year = year;
@@ -25,11 +27,11 @@ public class SalesData {
 	}
 
 
-	public int getYear() {
+	public YearMonth getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(YearMonth year) {
 		this.year = year;
 	}
 
@@ -38,7 +40,7 @@ public class SalesData {
 		return sales;
 	}
 
-	public void setSales(double sales) {
+	public void setSales(Double sales) {
 		this.sales = sales;
 	}
 	

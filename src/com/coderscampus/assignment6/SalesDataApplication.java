@@ -6,28 +6,22 @@ public class SalesDataApplication {
 
 	public static void main(String[] args) throws ParseException {
 	
-		runApp();
+		//--------------------------input--------------------------	
+				FileService captureData = new FileService();
+				
+				captureData.readFile("model3.csv");
+				captureData.readFile("modelS.csv");
+				captureData.readFile("modelX.csv");
+		//--------------------------output--------------------------
+				
+				System.out.println("\n\nModel 3 Yearly Sales Report\n--------------------------");
+				FileService.retrieveYearlyReport(FileService.list3);
+				//FileService.getMinMax(FileService.list3);
+				System.out.println("\n\nModel X Yearly Sales Report\n--------------------------");
+				FileService.retrieveYearlyReport(FileService.listX);
+				//FileService.getMinMax(FileService.listX);	
+				System.out.println("\n\nModel S Yearly Sales Report\n--------------------------");
+				FileService.retrieveYearlyReport(FileService.listS);
+				//FileService.getMinMax(FileService.listS);		
 	}
-	
-	private static void runApp() throws ParseException {
-		
-//--------------------------input--------------------------	
-		FileServiceImpl captureData = new FileServiceImpl();
-		
-		captureData.readFile(FileServiceImpl.model3File.toString());
-		captureData.readFile(FileServiceImpl.modelXFile.toString());
-		captureData.readFile(FileServiceImpl.modelSFile.toString());
-//--------------------------output--------------------------
-		
-		System.out.println("\n\nModel 3 Yearly Sales Report\n--------------------------");
-		FileServiceImpl.retrieveYearlyReport(FileServiceImpl.model3Map);
-		FileServiceImpl.getMinMax(FileServiceImpl.model3Map);
-		System.out.println("\n\nModel X Yearly Sales Report\n--------------------------");
-		FileServiceImpl.retrieveYearlyReport(FileServiceImpl.modelSMap);
-		FileServiceImpl.getMinMax(FileServiceImpl.modelXMap);	
-		System.out.println("\n\nModel S Yearly Sales Report\n--------------------------");
-		FileServiceImpl.retrieveYearlyReport(FileServiceImpl.modelXMap);
-		FileServiceImpl.getMinMax(FileServiceImpl.modelSMap);		
-	}
-
 }
