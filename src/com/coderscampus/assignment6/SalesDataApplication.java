@@ -16,12 +16,9 @@ public class SalesDataApplication {
 				
 				System.out.println("\n\nModel 3 Yearly Sales Report\n--------------------------");
 				FileService.retrieveYearlyReport(FileService.list3);
-				//FileService.getMinMax(FileService.list3);
 				System.out.println("\n\nModel X Yearly Sales Report\n--------------------------");
 				FileService.retrieveYearlyReport(FileService.listX);
-				//FileService.getMinMax(FileService.listX);	
 				System.out.println("\n\nModel S Yearly Sales Report\n--------------------------");
 				FileService.retrieveYearlyReport(FileService.listS);
-				//FileService.getMinMax(FileService.listS);		
 	}
 }
