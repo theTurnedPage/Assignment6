@@ -114,7 +114,7 @@ public class FileService {
         		.min(Double::compareTo)
         		.orElse(Double.NaN);                     
         
-        String teslaModel = minMaxModel(theData); 
+        String teslaModel = theData.get(0).getModel(); //removed getMinMaxModel method, 1 line does the same thing
 
         YearMonth minDate = theData.stream()
         		.filter(s -> s.getSales().equals(minNumber))
@@ -131,22 +131,6 @@ public class FileService {
         System.out.print("\nThe worst month for " + teslaModel + " was: ");
         System.out.print(minDate + " -> " +  minNumber);                      
     }	    
-    public static String minMaxModel(List<SalesData> theData) {
-    	//conditions for whichever Tesla Model is being referenced
-    	if (theData.equals(list3)) {
-    		
-    		return "Model 3";
-    	}    	
-    	else if (theData.equals(listS)) {
-    		
-    		return "Model S";
-    	}    	
-    	else if (theData.equals(listX)) {
-    		
-    		return "Model X";
-    	}    	
-    	return null;
-    } 
     public static double sumValues(List<SalesData> theData, String stringYear) {    	    	    	    	    	    	    
     	
         List<Double> collectedNumbers = theData.stream()
