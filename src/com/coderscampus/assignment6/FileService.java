@@ -84,7 +84,7 @@ public class FileService {
     	//removed fixed array, and instead pulled the years of sale using streams into Lists
     	double totalSales = 1;    	
     	int i = 0;  
-    	//take all years, which are in the keySet, insert into a list
+
     	List<YearMonth> saleYears = theData.stream().distinct().map(s -> s.getYear()).toList();
     	List<String> shortenSaleYears = new ArrayList<>();
     	//create new list, then populate it with return value of shortened years
@@ -159,8 +159,7 @@ public class FileService {
     			.sum();
 
 		return theSums;
-    }
-            
+    }            
     public static String shortenDateString(YearMonth yearMonth) {
     	//remove 3 parts of the string, leaving just the year
     	String dateString ="";
@@ -174,7 +173,6 @@ public class FileService {
     //much simpler, less gymnastics than the previous methods.
     private static YearMonth convertDate(String originalDate) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM-yy");
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
         YearMonth yearMonth = YearMonth.parse(originalDate, inputFormatter);
         return yearMonth;
     }		
